@@ -26,8 +26,8 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo useradd -m selenium
 
 # Firefox
-wget http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
-sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb 
+wget https://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_35.0.1-0ubuntu1_amd64.deb
+sudo dpkg -i firefox-mozilla-build_35.0.1-0ubuntu1_amd64.deb 
 
 # Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -98,8 +98,8 @@ sudo systemctl start x11vnc
 # Selenium
 sudo mkdir -p /var/log/selenium /var/lib/selenium
 sudo chmod 777 /var/log/selenium
-sudo wget http://selenium-release.storage.googleapis.com/2.47/selenium-server-standalone-2.47.0.jar -P /var/lib/selenium/
-sudo ln -s /var/lib/selenium/selenium-server-standalone-2.47.0.jar /var/lib/selenium/selenium-server.jar
+sudo wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar -P /var/lib/selenium/
+sudo ln -s /var/lib/selenium/selenium-server-standalone-2.45.0.jar /var/lib/selenium/selenium-server.jar
 sudo sh -c 'cat > /etc/systemd/system/selenium.service << ENDOFPASTA
 [Unit]
 Description=Selenium Standalone Server
