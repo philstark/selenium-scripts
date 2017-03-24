@@ -86,7 +86,7 @@ After=xvfb.service
  
 [Service]
 User=selenium
-ExecStart=/usr/bin/x11vnc -forever -display :90 -passwd cpanel1
+ExecStart=/usr/bin/x11vnc -ncache_cr -forever -display :90 -passwd cpanel1
 ExecStop=killall x11vnc
  
 [Install]
@@ -107,6 +107,7 @@ After=xvfb.service
 
 [Service]
 Environment=DISPLAY=:90
+Environment=DBUS_SESSION_BUS_ADDRESS=/dev/null
 ExecStart=/sbin/start-stop-daemon -c selenium --start --background --pidfile /var/run/selenium.pid --make-pidfile --exec /usr/bin/java -- -jar /var/lib/selenium/selenium-server.jar -Dwebdriver.chrome.driver=/usr/local/share/chromedriver -Djava.security.egd=file:/dev/./urandom -log /var/log/selenium/selenium.log -port 4444
 Type=forking
 PIDFile=/var/run/selenium.pid
@@ -116,3 +117,12 @@ WantedBy=default.target
 ENDOFPASTA'
 sudo systemctl enable selenium.service
 sudo systemctl start selenium
+
+# Corn jobs
+ubuntu@linux:~$ sudo sh -c 'crontab - << ENDOFPASTA
+5 * * * * killall -o 2h firefox
+15 * * * * killall -o 2h chromium-browser
+*/5 * * * * service xvfb status >/dev/null || service xvfb start >/dev/null
+*/5 * * * * service x11vnc status >/dev/null || service x11vnc start >/dev/null
+*/5 * * * * service selenium status >/dev/null || service selenium start >/dev/null
+ENDOFPASTA'
