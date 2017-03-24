@@ -119,7 +119,7 @@ sudo systemctl enable selenium.service
 sudo systemctl start selenium
 
 # Corn jobs
-ubuntu@linux:~$ sudo sh -c 'crontab - << ENDOFPASTA
+sudo sh -c 'crontab - << ENDOFPASTA
 5 * * * * killall -o 2h firefox
 15 * * * * killall -o 2h chromium-browser
 */5 * * * * service xvfb status >/dev/null || service xvfb start >/dev/null
