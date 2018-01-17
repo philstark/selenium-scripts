@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # OS Setup
-sudo apt-get install -y aptitude ubuntu-minimal 
+sudo apt-get install -y aptitude ubuntu-minimal
 sudo aptitude markauto -y '~i!~nubuntu-minimal'
-sudo apt-get install -y linux-image-virtual openssh-server 
-sudo apt-get update 
-sudo apt-get upgrade -y 
+sudo apt-get install -y linux-image-virtual openssh-server
+sudo apt-get update
+sudo apt-get upgrade -y
 
 # Supporting Software
 sudo apt-get install -y xvfb x11vnc unzip default-jre openbox
@@ -20,23 +20,23 @@ sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab 
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 # Create selenium user
 sudo useradd -m selenium
 
 # Firefox
 wget https://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_35.0.1-0ubuntu1_amd64.deb
-sudo dpkg -i firefox-mozilla-build_35.0.1-0ubuntu1_amd64.deb 
+sudo dpkg -i firefox-mozilla-build_35.0.1-0ubuntu1_amd64.deb
 
 # Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install -y google-chrome-stable
- 
+
 # Chromedriver
-wget https://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
+wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip
 unzip chromedriver_linux64.zip
 chmod +x chromedriver
 sudo mv -f chromedriver /usr/local/share/chromedriver
@@ -48,12 +48,12 @@ sudo sh -c 'cat > /etc/systemd/system/xvfb.service << ENDOFPASTA
 [Unit]
 Description=X Virtual Frame Buffer Service
 After=network.target
- 
+
 [Service]
 User=selenium
 ExecStart=/usr/bin/Xvfb :90 -screen 0 1024x768x24
 ExecStop=killall Xvfb
- 
+
 [Install]
 WantedBy=multi-user.target
 ENDOFPASTA'
@@ -65,13 +65,13 @@ sudo sh -c 'cat > /etc/systemd/system/openbox.service << ENDOFPASTA
 [Unit]
 Description=Openbox Window Manager
 After=xvfb.service
- 
+
 [Service]
 User=selenium
 Environment=DISPLAY=:90
 ExecStart=/usr/bin/openbox-session
 ExecStop=killall openbox
- 
+
 [Install]
 WantedBy=multi-user.target
 ENDOFPASTA'
@@ -83,12 +83,12 @@ sudo sh -c 'cat > /etc/systemd/system/x11vnc.service << ENDOFPASTA
 [Unit]
 Description=x11vnc VNC Server
 After=xvfb.service
- 
+
 [Service]
 User=selenium
 ExecStart=/usr/bin/x11vnc -ncache_cr -forever -display :90 -passwd cpanel1
 ExecStop=killall x11vnc
- 
+
 [Install]
 WantedBy=multi-user.target
 ENDOFPASTA'
