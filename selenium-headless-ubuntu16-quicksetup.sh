@@ -29,7 +29,7 @@ sudo useradd -m selenium
 sudo apt-get install -y firefox chromium-browser libgconf2-4
 
 # Chromedriver
-wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip
+wget https://chromedriver.storage.googleapis.com/$(curl -f -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE || printf 2.37)/chromedriver_linux64.zip
 unzip chromedriver_linux64.zip
 chmod +x chromedriver
 sudo mv -f chromedriver /usr/local/share/chromedriver
