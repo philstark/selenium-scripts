@@ -99,8 +99,8 @@ sudo systemctl start x11vnc
 # Selenium
 sudo mkdir -p /var/log/selenium /var/lib/selenium
 sudo chmod 777 /var/log/selenium
-sudo wget http://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar -P /var/lib/selenium/
-sudo ln -s /var/lib/selenium/selenium-server-standalone-3.9.1.jar /var/lib/selenium/selenium-server.jar
+sudo wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P /var/lib/selenium/
+sudo ln -f -s /var/lib/selenium/selenium-server-standalone-3.141.59.jar /var/lib/selenium/selenium-server.jar
 sudo sh -c 'cat > /etc/systemd/system/selenium.service << ENDOFPASTA
 [Unit]
 Description=Selenium Standalone Server
