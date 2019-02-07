@@ -33,17 +33,16 @@ wget https://chromedriver.storage.googleapis.com/$(curl -f -s https://chromedriv
 unzip chromedriver_linux64.zip
 chmod +x chromedriver
 sudo mv -f chromedriver /usr/local/share/chromedriver
-sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+sudo ln -f -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+sudo ln -f -s /usr/local/share/chromedriver /usr/bin/chromedriver
 
 # Geckodriver
-wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
+wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
 tar -zxf geckodriver-v0.19.1-linux64.tar.gz
-cd geckodriver-v0.19.1-linux64
 chmod +x geckodriver
 sudo mv -f geckodriver /usr/local/share/geckodriver
-sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
-sudo ln -s /usr/local/share/geckodriver /usr/bin/geckodriver
+sudo ln -f -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+sudo ln -f -s /usr/local/share/geckodriver /usr/bin/geckodriver
 
 # xvfb
 sudo sh -c 'cat > /etc/systemd/system/xvfb.service << ENDOFPASTA
