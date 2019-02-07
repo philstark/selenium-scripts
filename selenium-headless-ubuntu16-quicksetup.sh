@@ -53,7 +53,7 @@ After=network.target
 [Service]
 User=selenium
 ExecStart=/usr/bin/Xvfb :90 -screen 0 1024x768x24
-ExecStop=killall Xvfb
+ExecStop=/usr/bin/killall Xvfb
 
 [Install]
 WantedBy=multi-user.target
@@ -71,7 +71,7 @@ After=xvfb.service
 User=selenium
 Environment=DISPLAY=:90
 ExecStart=/usr/bin/openbox-session
-ExecStop=killall openbox
+ExecStop=/usr/bin/killall openbox
 
 [Install]
 WantedBy=multi-user.target
@@ -88,7 +88,7 @@ After=xvfb.service
 [Service]
 User=selenium
 ExecStart=/usr/bin/x11vnc -ncache_cr -forever -display :90 -passwd cpanel1
-ExecStop=killall x11vnc
+ExecStop=/usr/bin/killall x11vnc
 
 [Install]
 WantedBy=multi-user.target
