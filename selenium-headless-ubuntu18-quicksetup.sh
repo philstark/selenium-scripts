@@ -128,5 +128,8 @@ sudo sh -c 'crontab - << ENDOFPASTA
 */5 * * * * service selenium status >/dev/null || service selenium start >/dev/null
 ENDOFPASTA'
 
+# Cleanup
+sudo apt-get -y autoremove
+
 # All done.
 echo "SETUP COMPLETE"
