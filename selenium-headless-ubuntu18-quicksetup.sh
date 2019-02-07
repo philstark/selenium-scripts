@@ -33,17 +33,16 @@ wget https://chromedriver.storage.googleapis.com/$(curl -f -s https://chromedriv
 unzip chromedriver_linux64.zip
 chmod +x chromedriver
 sudo mv -f chromedriver /usr/local/share/chromedriver
-sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+sudo ln -f -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+sudo ln -f -s /usr/local/share/chromedriver /usr/bin/chromedriver
 
 # Geckodriver
-wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
-tar -zxf geckodriver-v0.19.1-linux64.tar.gz
-cd geckodriver-v0.19.1-linux64
+wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+tar -zxf geckodriver-v0.24.0-linux64.tar.gz
 chmod +x geckodriver
 sudo mv -f geckodriver /usr/local/share/geckodriver
-sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
-sudo ln -s /usr/local/share/geckodriver /usr/bin/geckodriver
+sudo ln -f -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+sudo ln -f -s /usr/local/share/geckodriver /usr/bin/geckodriver
 
 # xvfb
 sudo sh -c 'cat > /etc/systemd/system/xvfb.service << ENDOFPASTA
@@ -54,7 +53,7 @@ After=network.target
 [Service]
 User=selenium
 ExecStart=/usr/bin/Xvfb :90 -screen 0 1024x768x24
-ExecStop=killall Xvfb
+ExecStop=/usr/bin/killall Xvfb
 
 [Install]
 WantedBy=multi-user.target
@@ -72,7 +71,7 @@ After=xvfb.service
 User=selenium
 Environment=DISPLAY=:90
 ExecStart=/usr/bin/openbox-session
-ExecStop=killall openbox
+ExecStop=/usr/bin/killall openbox
 
 [Install]
 WantedBy=multi-user.target
@@ -89,7 +88,7 @@ After=xvfb.service
 [Service]
 User=selenium
 ExecStart=/usr/bin/x11vnc -ncache_cr -forever -display :90 -passwd cpanel1
-ExecStop=killall x11vnc
+ExecStop=/usr/bin/killall x11vnc
 
 [Install]
 WantedBy=multi-user.target
@@ -100,8 +99,8 @@ sudo systemctl start x11vnc
 # Selenium
 sudo mkdir -p /var/log/selenium /var/lib/selenium
 sudo chmod 777 /var/log/selenium
-sudo wget http://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar -P /var/lib/selenium/
-sudo ln -s /var/lib/selenium/selenium-server-standalone-3.9.1.jar /var/lib/selenium/selenium-server.jar
+sudo wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P /var/lib/selenium/
+sudo ln -f -s /var/lib/selenium/selenium-server-standalone-3.141.59.jar /var/lib/selenium/selenium-server.jar
 sudo sh -c 'cat > /etc/systemd/system/selenium.service << ENDOFPASTA
 [Unit]
 Description=Selenium Standalone Server
@@ -128,6 +127,9 @@ sudo sh -c 'crontab - << ENDOFPASTA
 */5 * * * * service x11vnc status >/dev/null || service x11vnc start >/dev/null
 */5 * * * * service selenium status >/dev/null || service selenium start >/dev/null
 ENDOFPASTA'
+
+# Cleanup
+sudo apt-get -y autoremove
 
 # All done.
 echo "SETUP COMPLETE"
