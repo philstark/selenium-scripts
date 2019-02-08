@@ -37,9 +37,9 @@ sudo ln -f -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 sudo ln -f -s /usr/local/share/chromedriver /usr/bin/chromedriver
 
 # Geckodriver
-VER=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/mozilla/geckodriver/releases/latest | awk -F/ '{print $NF}')
-wget https://github.com/mozilla/geckodriver/releases/download/"$VER"/geckodriver-"$VER"-linux64.tar.gz
-tar -zxf geckodriver-"$VER"-linux64.tar.gz
+GVER=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/mozilla/geckodriver/releases/latest | awk -F/ '{print $NF}')
+wget https://github.com/mozilla/geckodriver/releases/download/"$GVER"/geckodriver-"$GVER"-linux64.tar.gz
+tar -zxf geckodriver-"$GVER"-linux64.tar.gz
 chmod +x geckodriver
 sudo mv -f geckodriver /usr/local/share/geckodriver
 sudo ln -f -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
