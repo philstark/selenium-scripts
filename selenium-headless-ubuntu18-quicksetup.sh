@@ -4,7 +4,7 @@
 sudo apt-get install -y aptitude ubuntu-minimal
 sudo aptitude markauto -y '~i!~nubuntu-minimal'
 sudo apt-get update --fix-missing
-sudo apt-get install -y linux-image-virtual openssh-server
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-virtual openssh-server
 sudo apt-get upgrade -y
 
 # Supporting Software
